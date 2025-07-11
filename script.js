@@ -1,24 +1,51 @@
-const transcriptContainer = document.getElementById('transcriptContainer');
-const timestampElem = document.getElementById('timestamp');
+// Automatically grabs the current HTML filename and parses data
+document.addEventListener("DOMContentLoaded", async () => {
+  const container = document.getElementById("transcriptContainer");
 
-const urlParams = new URLSearchParams(window.location.search);
-const transcriptId = urlParams.get('id');
+  try {
+    const rawHtml = await fetch(window.location.href).then(res => res.text());
 
-if (!transcriptId) {
-  transcriptContainer.textContent = 'No transcript ID provided in URL.';
-} else {
-  fetch(`/transcripts/transcript-${transcriptId}.html`)
-    .then(res => {
-      if (!res.ok) throw new Error('Transcript not found');
-      return res.text();
-    })
-    .then(html => {
-      // If transcript is full HTML, you might want to sanitize or extract text
-      // For now, we’ll just insert raw HTML inside the embed description
-      transcriptContainer.innerHTML = html;
-      timestampElem.textContent = new Date().toLocaleString();
-    })
-    .catch(err => {
-      transcriptContainer.textContent = err.message;
+    // Attempt to parse and extract messages
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(rawHtml, "text/html");
+
+    const rawMessages = Array.from(doc.body.querySelectorAll("p"));
+    if (rawMessages.length === 0) throw new Error("No messages found.");
+
+    container.innerHTML = ""; // Clear loader
+
+    rawMessages.forEach(p => {
+      const [userPart, ...messageParts] = p.textContent.split(":");
+      const username = userPart.trim();
+      const message = messageParts.join(":").trim();
+
+      const messageDiv = document.createElement("div");
+      messageDiv.className = "message";
+
+      const avatar = document.createElement("img");
+      avatar.className = "avatar";
+      avatar.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(username)}&background=7289da&color=fff`;
+
+      const content = document.createElement("div");
+      content.className = "message-content";
+
+      const name = document.createElement("div");
+      name.className = "username";
+      name.textContent = username;
+
+      const msg = document.createElement("div");
+      msg.className = "content";
+      msg.textContent = message;
+
+      content.appendChild(name);
+      content.appendChild(msg);
+
+      messageDiv.appendChild(avatar);
+      messageDiv.appendChild(content);
+      container.appendChild(messageDiv);
     });
-}
+  } catch (err) {
+    console.error(err);
+    container.textContent = "Failed to load transcript.";
+  }
+});
