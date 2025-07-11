@@ -1,15 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Perplexify Transcript</title>
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8" />
+<title>Transcript Viewer</title>
+<style>
+  /* Discord Dark Background */
+  body {
+    margin: 0;
+    background-color: #2f3136;
+    color: #dcddde;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  /* Container for entire transcript */
+  .transcript {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 0 20px;
+  }
+
+  /* Header: Channel name + owner */
+  .header {
+    font-weight: 700;
+    font-size: 20px;
+    color: white;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #202225;
+  }
+  .subheader {
+    font-weight: 400;
+    font-size: 12px;
+    color: #72767d;
+    margin-bottom: 20px;
+  }
+
+  /* Single message container */
+  .message {
+    display: flex;
+    margin-bottom: 15px;
+  }
+
+  /* User icon */
+  .avatar {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 15px;
+  }
+
+  /* Message content */
+  .message-content {
+    background-color: #36393f;
+    border-left: 4px solid #0055FF; /* The colored embed sidebar */
+    padding: 10px 15px;
+    border-radius: 4px;
+    width: 100%;
+  }
+
+  /* Username and timestamp */
+  .username {
+    font-weight: 600;
+    color: white;
+  }
+  .timestamp {
+    font-size: 10px;
+    color: #72767d;
+    margin-left: 8px;
+  }
+
+  /* Message text */
+  .text {
+    margin-top: 4px;
+    white-space: pre-wrap;
+  }
+
+  /* Footer timestamp */
+  .footer {
+    margin-top: 30px;
+    border-top: 1px solid #202225;
+    padding-top: 10px;
+    font-size: 12px;
+    color: #72767d;
+  }
+
+</style>
 </head>
-<body class="dark">
-  <div id="chat-container">
-    <h1>Perplexify Transcript Viewer</h1>
-    <div id="transcript">Loading transcript...</div>
+<body>
+
+<div class="transcript">
+  <div class="header"># assistance-ivish <span style="font-weight:400; font-size:14px; color:#72767d;">Ticket Owner: 848766242625290260</span></div>
+  <div class="subheader">This is the latest 500 messages of the #assistance-ivish channel.</div>
+
+  <div class="message">
+    <img class="avatar" src="https://cdn.discordapp.com/avatars/848766242625290260/youravatar.png" alt="User Avatar" />
+    <div class="message-content">
+      <div>
+        <span class="username">Perplexify <span style="background:#5865f2; padding: 1px 4px; font-size:10px; border-radius:3px; color:white;">BOT</span></span>
+        <span class="timestamp">Today at 15:36</span>
+      </div>
+      <div class="text">
+        @here | &lt;@848766242625290260&gt;<br><br>
+        <strong>Assistance Ticket</strong><br>
+        Welcome &lt;@848766242625290260&gt;!<br><br>
+        <strong>Reason:</strong><br>
+        ecefe
+      </div>
+      <div style="margin-top: 6px; font-size: 12px; color: #72767d;">Claimed by ivish._</div>
+    </div>
   </div>
-  <script src="script.js"></script>
+
+  <div class="footer">This transcript was generated on 11 July 2025 at 15:36:35 (UTC)</div>
+</div>
+
 </body>
 </html>
