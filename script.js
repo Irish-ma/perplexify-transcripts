@@ -1,23 +1,24 @@
-const params = new URLSearchParams(window.location.search);
-const transcriptId = params.get('id');
-const container = document.getElementById('transcriptContainer');
+const transcriptContainer = document.getElementById('transcriptContainer');
+const timestampElem = document.getElementById('timestamp');
+
+const urlParams = new URLSearchParams(window.location.search);
+const transcriptId = urlParams.get('id');
 
 if (!transcriptId) {
-  container.innerHTML = '<p>No transcript ID provided.</p>';
+  transcriptContainer.textContent = 'No transcript ID provided in URL.';
 } else {
-  fetch(`https://api.cookie-api.com/api/transcript/view?id=${transcriptId}`)
-    .then(res => res.json())
-    .then(data => {
-      if (!data || !data.success) {
-        container.innerHTML = '<p>Transcript not found.</p>';
-        return;
-      }
-
-      const transcriptHTML = data.transcriptHtml || '<p>No content.</p>';
-      container.innerHTML = transcriptHTML;
+  fetch(`/transcripts/transcript-${transcriptId}.html`)
+    .then(res => {
+      if (!res.ok) throw new Error('Transcript not found');
+      return res.text();
+    })
+    .then(html => {
+      // If transcript is full HTML, you might want to sanitize or extract text
+      // For now, we’ll just insert raw HTML inside the embed description
+      transcriptContainer.innerHTML = html;
+      timestampElem.textContent = new Date().toLocaleString();
     })
     .catch(err => {
-      console.error(err);
-      container.innerHTML = '<p>Failed to load transcript.</p>';
+      transcriptContainer.textContent = err.message;
     });
 }
