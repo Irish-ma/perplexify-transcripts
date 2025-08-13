@@ -2,116 +2,243 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>Transcript Viewer</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Perplexify Develoment</title>
+<link
+  href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap"
+  rel="stylesheet"
+/>
 <style>
-  /* Discord Dark Background */
   body {
     margin: 0;
-    background-color: #2f3136;
-    color: #dcddde;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
-
-  /* Container for entire transcript */
-  .transcript {
-    max-width: 900px;
-    margin: 20px auto;
-    padding: 0 20px;
-  }
-
-  /* Header: Channel name + owner */
-  .header {
-    font-weight: 700;
-    font-size: 20px;
+    font-family: "Poppins", sans-serif;
+    background-image: url('https://media.discordapp.net/attachments/1380944585718763600/1403583210889154692/Page20Banner.png?ex=689cb17a&is=689b5ffa&hm=8ea344c0cce373dec72f526dfb2f2817a32051365747cdbd041848e49732f1aa&=&width=1489&height=838');
+    background-size: cover;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     color: white;
-    padding-bottom: 5px;
-    border-bottom: 1px solid #202225;
-  }
-  .subheader {
-    font-weight: 400;
-    font-size: 12px;
-    color: #72767d;
-    margin-bottom: 20px;
   }
 
-  /* Single message container */
-  .message {
+  nav {
     display: flex;
-    margin-bottom: 15px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  nav img {
+    height: 45px;
+    margin-right: 10px;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    font-weight: 800;
+    font-size: 1.2rem;
+  }
+  nav ul {
+    display: flex;
+    list-style: none;
+    gap: 1.5rem;
+    margin: 0;
+  }
+  nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+  h1:hover,
+  h2:hover,
+  h3:hover,
+  p:hover,
+  a:hover,
+  li:hover,
+  nav ul li a:hover,
+  .logo:hover {
+    text-shadow: none;
+    color: inherit;
+    cursor: pointer;
   }
 
-  /* User icon */
-  .avatar {
-    flex-shrink: 0;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    margin-right: 15px;
+  .hero {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 4rem 2rem;
+    max-width: 900px;
+    margin: auto;
+  }
+  .hero h1 {
+    font-size: 2.8rem;
+    font-weight: 800;
+    white-space: nowrap;
+    border-right: 3px solid #ffff; 
+    overflow: hidden; 
+    width: 0;
+    animation: typing 4s steps(40, end) forwards, blink-caret 0.75s step-end infinite;
+  }
+  @keyframes typing {
+    from {
+      width: 0;
+    }
+    to {
+      width: 100%;
+    }
+  }
+  @keyframes blink-caret {
+    50% {
+      border-color: transparent;
+    }
   }
 
-  /* Message content */
-  .message-content {
-    background-color: #36393f;
-    border-left: 4px solid #0055FF; /* The colored embed sidebar */
-    padding: 10px 15px;
-    border-radius: 4px;
-    width: 100%;
+  .hero p {
+    color: #ccc;
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin-top: 0.5rem;
+  }
+  .buttons {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 1rem;
   }
 
-  /* Username and timestamp */
-  .username {
+
+  .btn {
+    padding: 0.8rem 1.5rem;
+    border-radius: 50px;
+    text-decoration: none;
     font-weight: 600;
+    background: transparent; 
+    border: 2px solid;       
+    color: inherit;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+  .btn-primary {
+    border-color: #ff3838;
+    color: #ff3838;
+  }
+  .btn-primary:hover {
+    background: #ff3838;
     color: white;
   }
-  .timestamp {
-    font-size: 10px;
-    color: #72767d;
-    margin-left: 8px;
+  .btn-secondary {
+    border-color: white;
+    color: white;
+  }
+  .btn-secondary:hover {
+    background: white;
+    color: black;
   }
 
-  /* Message text */
-  .text {
-    margin-top: 4px;
-    white-space: pre-wrap;
+  .about {
+    padding: 3rem 2rem;
+    text-align: center;
+    max-width: 900px;
+    margin: auto;
   }
-
-  /* Footer timestamp */
-  .footer {
-    margin-top: 30px;
-    border-top: 1px solid #202225;
-    padding-top: 10px;
-    font-size: 12px;
-    color: #72767d;
+  .about h2 {
+    font-size: 2rem;
+    font-weight: 800;
   }
-
+  .about p {
+    color: #ccc;
+    margin-top: 1rem;
+    font-size: 1.1rem;
+  }
+  /* Features */
+  .features {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    padding: 3rem 2rem;
+    flex-wrap: wrap;
+  }
+  .feature {
+    text-align: center;
+    max-width: 250px;
+  }
+  .feature img {
+    height: 50px;
+    margin-bottom: 1rem;
+  }
+  .feature h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+  .feature p {
+    color: #aaa;
+    font-size: 0.95rem;
+  }
 </style>
 </head>
 <body>
 
-<div class="transcript">
-  <div class="header"># assistance-ivish <span style="font-weight:400; font-size:14px; color:#72767d;">Ticket Owner: 848766242625290260</span></div>
-  <div class="subheader">This is the latest 500 messages of the #assistance-ivish channel.</div>
-
-  <div class="message">
-    <img class="avatar" src="https://cdn.discordapp.com/avatars/848766242625290260/youravatar.png" alt="User Avatar" />
-    <div class="message-content">
-      <div>
-        <span class="username">Perplexify <span style="background:#5865f2; padding: 1px 4px; font-size:10px; border-radius:3px; color:white;">BOT</span></span>
-        <span class="timestamp">Today at 15:36</span>
-      </div>
-      <div class="text">
-        @here | &lt;@848766242625290260&gt;<br><br>
-        <strong>Assistance Ticket</strong><br>
-        Welcome &lt;@848766242625290260&gt;!<br><br>
-        <strong>Reason:</strong><br>
-        ecefe
-      </div>
-      <div style="margin-top: 6px; font-size: 12px; color: #72767d;">Claimed by ivish._</div>
+  <nav>
+    <div class="logo">
+      <img
+        src="https://images-ext-1.discordapp.net/external/7iu1kX0R_a0OI4-8hNEnH9LG3URQz88CLC1CcOh679Q/%3Fsize%3D512/https/cdn.discordapp.com/icons/1368291643349930136/66c0531e455426cff4d33154ec2ed24f.png?width=549&height=549"
+        alt="Logo"
+      />
+      New Mexico Roleplay
     </div>
-  </div>
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="ownership.html">Ownership</a></li>
+    </ul>
+  </nav>
 
-  <div class="footer">This transcript was generated on 11 July 2025 at 15:36:35 (UTC)</div>
-</div>
 
+  <section class="hero">
+    <h1>Perplexify Development — Better Quality</h1>
+    <p>
+      Experience the most immersive and realistic roleplay server in ER:LC. We
+      offer custom features, active staff, and an amazing community that brings
+      roleplay to life.
+    </p>
+    <div class="buttons">
+      <a href="https://discord.gg/" class="btn btn-primary">Join Discord</a>
+      <a href="#about" class="btn btn-secondary">Learn More</a>
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <h2>About Perplexify</h2>
+    <p>
+      Your one-stop shop for high-quality Discord bots, stunning banners, and modern webpages. Whether you're looking to automate your server, elevate your brand with custom graphics, or build a sleek online presence, our team delivers fast, reliable, and professional solutions tailored to your needs.
+    </p>
+  </section>
+
+  <section class="features">
+    <div class="feature">
+      <img
+        src="https://cdn.discordapp.com/emojis/1382382167300243597.webp?size=128"
+        alt="Feature Icon"
+      />
+      <h3>Custom RP Features</h3>
+      <p>Exclusive scripts and tools to make roleplay more immersive.</p>
+    </div>
+    <div class="feature">
+      <img
+        src="https://cdn.discordapp.com/emojis/1382384933321965708.webp?size=128"
+        alt="Feature Icon"
+      />
+      <h3>Immersive Scenarios</h3>
+      <p>Realistic scenarios designed by experienced staff.</p>
+    </div>
+    <div class="feature">
+      <img
+        src="https://cdn.discordapp.com/emojis/1382382175223025745.webp?size=128"
+        alt="Feature Icon"
+      />
+      <h3>Active Community</h3>
+      <p>Friendly and active members ready to roleplay anytime.</p>
+    </div>
+  </section>
 </body>
 </html>
